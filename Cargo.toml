@@ -5,7 +5,6 @@ edition.workspace = true
 description = "This package can derive keys and perhaps build a service as well."
 # homepage.workspace = true
 license.workspace = true
-readme.workspace = true
 repository.workspace = true
 rust-version.workspace = true
 version.workspace = true

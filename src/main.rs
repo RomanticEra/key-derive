@@ -1,7 +1,21 @@
 use key_derive::{encode, CONFIG};
 #[cfg(test)]
 pub use poem::test::TestClient;
-use poem::{get, handler, listener::TcpListener, web::Path, Route, Server};
+#[cfg(test)]
+mod self_sign;
+use poem::{
+    get, handler,
+    listener::{Listener, RustlsCertificate, RustlsConfig, TcpListener},
+    web::Path,
+    Route, Server,
+};
+
+// use poem::{
+//     get, handler,
+//     listener::{Listener, RustlsCertificate, RustlsConfig, TcpListener},
+//     Route, Server,
+// };
+use tokio::time::Duration;
 
 #[handler]
 fn derive_child_key(Path(index): Path<u32>) -> String {
@@ -46,10 +60,29 @@ impl App {
         Route::new().at("/:index", get(derive_child_key))
     }
     async fn run(app: Route) -> Result<(), std::io::Error> {
-        Server::new(TcpListener::bind("127.0.0.1:3000"))
-            .run(app)
-            .await
+        Server::new(
+            TcpListener::bind("127.0.0.1:3000").rustls(async_stream::stream! {
+                loop {
+                    if let Ok(tls_config) = load_tls_config() {
+                        yield tls_config;
+                    } else {
+                        panic!("No Cert Found!")
+                    }
+                    tokio::time::sleep(Duration::from_secs(120)).await;
+                }
+            }),
+        )
+        .run(app)
+        .await
     }
+}
+
+fn load_tls_config() -> Result<RustlsConfig, std::io::Error> {
+    Ok(RustlsConfig::new().fallback(
+        RustlsCertificate::new()
+            .cert(std::fs::read("ca.pem")?)
+            .key(std::fs::read("key.pem")?),
+    ))
 }
 
 #[tokio::main]

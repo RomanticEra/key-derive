@@ -21,7 +21,7 @@ pub(crate) fn derive_child_key(
     // 索引值为2：表示根密钥的第二个子密钥。
     index: u32,
 ) -> (SecretKey, [u8; 32]) {
-    let parent_key = &SecretKey::from_slice(&parent_key).unwrap();
+    let parent_key = &SecretKey::from_slice(parent_key).unwrap();
     // from chain_code
     let mut hmac = Hmac::<Sha512>::new_from_slice(chain_code).expect("HMAC initialization failed");
     // chain_code+parent_key

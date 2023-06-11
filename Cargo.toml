@@ -15,12 +15,12 @@ version.workspace = true
 serde = { version = "1", default-features = false, features = ["serde_derive"] }
 envy = "0.4"
 once_cell = "1"
-easy-ext = "1"
-monostate = "0.1.6"
+# easy-ext = "1"
+# monostate = "0.1.6"
 automod = "1"
-indexmap = { version = "1.9.3", features = ["serde"] }
-itertools = "0.10.5"
-lazy_static = "1"
+# indexmap = { version = "1.9.3", features = ["serde"] }
+# itertools = "0.10.5"
+# lazy_static = "1"
 eyre = "0.6.8"
 hmac = "0.12.1"
 sha2 = "0.10.6"

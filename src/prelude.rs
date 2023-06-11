@@ -3,6 +3,7 @@ pub use automod::dir;
 pub use envy::from_env;
 pub use eyre::{bail, eyre, Result};
 // pub use monostate::MustBe;
+pub use hex::FromHex;
 pub use hmac::{Hmac, Mac};
 pub use once_cell::sync::Lazy;
 pub use secp256k1::{PublicKey, Secp256k1, SecretKey};

@@ -5,6 +5,7 @@
 //! 8. 如何加载 `.env` 文件中的变量并使其在应用程序中可用。
 //! 9. 如何适配字符串类型的环境变量到 `[u8; 32]` 类型的数组。
 //! 10. 如何使用 `serde::de::Error` 来创建自定义错误。
+
 use crate::{
     derive_child::{derive_child_key, generate_public_key},
     prelude::*,
@@ -37,11 +38,16 @@ where
     D: serde::Deserializer<'de>,
 {
     use serde::de::Error;
-    let s: String = serde::Deserialize::deserialize(deserializer)?;
+    let hex_string: String = serde::Deserialize::deserialize(deserializer)?;
 
-    s.into_bytes()
+    hex_to_slice(hex_string).map_err(D::Error::custom)
+}
+
+pub fn hex_to_slice(hex_string: String) -> Result<[u8; 32], &'static str> {
+    Vec::from_hex(hex_string)
+        .map_err(|_e| "Invalid byte array size")?
         .try_into()
-        .map_err(|_| Error::custom("Invalid byte array size. Expected 32 bytes."))
+        .map_err(|_e| "Invalid byte array size")
 }
 
 impl Config {
@@ -66,5 +72,12 @@ mod tests {
     fn show_config_with_root_public() {
         dotenv().ok();
         assert_debug_snapshot!(CONFIG.derive_child_key(0).2);
+    }
+    #[test]
+    fn ascii_to_hex() {
+        let hex_string = hex::encode("s1");
+        dbg!(hex_string);
+        let hex_string = hex::encode("s2");
+        dbg!(hex_string);
     }
 }

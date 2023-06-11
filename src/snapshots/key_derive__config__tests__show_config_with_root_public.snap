@@ -1,0 +1,7 @@
+---
+source: crates/key-derive/src/config.rs
+expression: CONFIG.derive_child_key(0).2
+---
+PublicKey(
+    6e92221ae9fbe796ec1457778129c3b334f9ce5b4242dca06912a9de1be97f88082a681a773dc22b3a19c65474b21ee57eb00a0a72faed55f3c9fa77f93cbed2,
+)

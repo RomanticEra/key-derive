@@ -69,10 +69,14 @@ mod test {
 
     impl Entity {
         fn new() -> Self {
-            let mut params = CertificateParams::new(vec!["huang12zheng.github.io".to_owned()]);
-            params
-                .distinguished_name
-                .push(DnType::CommonName, "huang12zheng.github.io");
+            let params = CertificateParams::new(vec![
+                "huang12zheng.github.io".to_owned(),
+                "localhost".to_owned(),
+            ]);
+
+            // let dn = &mut params.distinguished_name;
+            // dn.push(DnType::CommonName, "huang12zheng.github.io");
+            // dn.push(DnType::CommonName, "localhost");
             Self {
                 certificate: Certificate::from_params(params).unwrap(),
             }

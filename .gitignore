@@ -1,3 +1,5 @@
 /target
 .env
 *.pem
+tests/snapshots/*
+src/snapshots/*

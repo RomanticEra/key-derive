@@ -1,5 +1,0 @@
----
-source: src/main.rs
-expression: "resp.0.into_body().into_string().await.unwrap().chars().rev().take(30).collect::<String>()"
----
-"8c0079d15808416bade1adde019af8"

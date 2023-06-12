@@ -10,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up Rust
-      uses: actions/setup-rust@v1
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
       with:
-        rust-version: stable
-
+        toolchain: stable
+        profile: minimal
+        override: true
+    - uses: Swatinem/rust-cache@v1
     - name: Check formatting
       run: cargo fmt -- --check
 

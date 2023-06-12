@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/runner/work/key-derive/key-derive/target/release/build/typenum-604d61736e14dd2c/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/home/runner/work/key-derive/key-derive/target/release/build/typenum-604d61736e14dd2c/out/op.rs

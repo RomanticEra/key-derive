@@ -61,16 +61,16 @@ impl App {
     }
     async fn run(app: Route) -> Result<(), std::io::Error> {
         Server::new(
-            TcpListener::bind("127.0.0.1:3000").rustls(async_stream::stream! {
-                loop {
-                    if let Ok(tls_config) = load_tls_config() {
-                        yield tls_config;
-                    } else {
-                        panic!("No Cert Found!")
-                    }
-                    tokio::time::sleep(Duration::from_secs(20)).await;
-                }
-            }),
+            TcpListener::bind("127.0.0.1:3000"), // .rustls(async_stream::stream! {
+                                                 //     loop {
+                                                 //         if let Ok(tls_config) = load_tls_config() {
+                                                 //             yield tls_config;
+                                                 //         } else {
+                                                 //             panic!("No Cert Found!")
+                                                 //         }
+                                                 //         tokio::time::sleep(Duration::from_secs(20)).await;
+                                                 //     }
+                                                 // }),
         )
         .run(app)
         .await

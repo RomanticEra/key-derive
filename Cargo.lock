@@ -704,6 +704,8 @@ dependencies = [
 [[package]]
 name = "key-derive"
 version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4d78d5754a5ab831a59a7cc8f130579f788f82a7cf5b8654f63d099ea8ec496e"
 dependencies = [
  "automod",
  "envy",
@@ -711,8 +713,6 @@ dependencies = [
  "hex",
  "hmac",
  "once_cell",
- "rcgen",
- "rustls",
  "secp256k1",
  "serde",
  "sha2",
